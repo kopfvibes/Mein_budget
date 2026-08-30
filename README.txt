@@ -1,22 +1,28 @@
-MEIN BUDGET – kostenlose Handy-App
+MEIN BUDGET+ – Version 2
 
-Enthalten:
-- Einnahmen
-- Ausgaben
-- Fixkosten
-- Restbetrag pro Monat
-- Sparziel mit Fortschritt
-- Monatsauswahl
-- lokale Datenspeicherung
-- offline-fähig nach Installation
+Neu:
+- mehrere Sparziele
+- Einzahlungen und Entnahmen pro Sparziel
+- Anzeige, wie viel bis zum Ziel noch fehlt
+- Kategorien hinzufügen, umbenennen und löschen
+- dynamische Spartipps
+- geschätztes monatliches Sparpotenzial
+- Kassenzettel per Kamera/Foto scannen
+- erkannter Händler + Gesamtbetrag + Kategorie
+- optional automatische Buchung des Kassenzettels
+- heuristische Sparanalyse auf erkannten Positionen
+- monatliche Fixkosten werden automatisch übertragen
+- Fixkosten können bearbeitet oder pausiert werden
 
-Wichtig:
-Für eine echte Installation als PWA muss der Ordner über HTTPS bereitgestellt werden.
-Kostenlos geht das z. B. über GitHub Pages.
+DATENSCHUTZ / DATEN:
+Budgetdaten bleiben lokal im Browser auf dem Gerät.
+Die bestehende localStorage-Datenbank "meinbudget-v1" wird weiterverwendet.
 
-Android:
-1. App-Link in Chrome öffnen.
-2. Menü ⋮ öffnen.
-3. „Zum Startbildschirm hinzufügen“ / „App installieren“ wählen.
+KASSENZETTEL:
+Die Texterkennung nutzt Tesseract.js. Beim ersten Scan ist Internet nötig,
+damit die kostenlose OCR-Komponente und deutsche Sprachdaten geladen werden können.
+Die App vergleicht KEINE Live-Preise anderer Händler. Sparhinweise sind Schätzungen.
 
-Die Daten werden ausschließlich lokal im Browser/auf dem Gerät gespeichert.
+UPDATE:
+Die Dateien im GitHub-Repository durch diese Version ersetzen und committen.
+GitHub Pages veröffentlicht die neue Version automatisch.
