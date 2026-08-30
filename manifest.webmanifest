@@ -1,12 +1,12 @@
 {
-  "name": "Mein Budget+",
-  "short_name": "Budget+",
+  "name": "Mein Budget Smart",
+  "short_name": "Budget Smart",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0d0d0f",
-  "theme_color": "#0e0e10",
-  "description": "Private Budget-, Sparziel- und Haushalts-App",
+  "background_color": "#0b0b0e",
+  "theme_color": "#0b0b0e",
+  "description": "Private Budget-, Sparziel-, Haushalts- und Kassenzettel-App",
   "icons": [
     {
       "src": "icon-192.png",
