@@ -1,30 +1,28 @@
-MEIN BUDGET SMART – VERSION 4
+MEIN BUDGET – VERSION 5
 
-NEU IN V4:
-- Jede Buchung hat jetzt ein echtes Datum.
-- Beim neuen Eintrag kann das Datum direkt gewählt werden.
-- Beim Bearbeiten kann das Datum nachträglich geändert werden.
-- Ändert man eine Buchung z. B. von August auf September,
-  wird sie automatisch in den September verschoben.
-- Alte Buchungen ohne Datum werden automatisch auf den 1. des
-  jeweiligen bisherigen Monats gesetzt und können danach korrigiert werden.
-- Fixkosten bleiben als wiederkehrende monatliche Fixkosten aktiv.
-  Sie erscheinen automatisch in den Folgemonaten.
-- Auch Kassenzettel-Buchungen erhalten ein Datum und können später bearbeitet werden.
-- Alle bisherigen Budget-, Yeti-, Sparziel-, Kategorien- und Haushaltsdaten
-  bleiben unter demselben lokalen Datenspeicher erhalten.
+NEU:
+- Mobile-First-Ansicht für eine typische Handybreite.
+- Feld Erwachsene komplett entfernt.
+- Keine automatische Budget-Verteilung und kein Vorschlags-Button mehr.
+- Kategorien-Budgets werden ausschließlich von dir selbst eingetragen.
+- Kinderzahl bleibt als Haushaltsangabe erhalten.
+- Konto-Minus zu Monatsbeginn kann für jeden Monat separat eingetragen werden.
+- Konto-Minus wird beim tatsächlich frei verfügbaren Geld sofort abgezogen.
+- Konto-Minus wird auch bei der Anzeige „noch unverplant“ berücksichtigt.
+- Spar-Maskottchen neu gestaltet: eigenständiger kleiner grüner weiser Spar-Meister mit großen Ohren und Sci-Fi-Anmutung.
+- Name und Warn-Grenze des Spar-Meisters bleiben frei anpassbar.
+- Datum pro Buchung, Verschieben zwischen Monaten, Fixkosten, Sparziele, Kategorien und Kassenzettel-Analyse bleiben erhalten.
 
-BEISPIEL:
-Du hast "Netto 40,33 €" im August eingetragen.
-Buchung öffnen -> Stiftsymbol -> Datum auf z. B. 05.09.2026 ändern -> Speichern.
-Die Ausgabe liegt danach im September.
+BEISPIEL KONTO-MINUS:
+Einnahmen 2.000 €
+Konto-Minus zu Monatsbeginn 350 €
+Ausgaben 1.000 €
+Gespart 100 €
+=> tatsächlich frei verfügbar: 550 €
 
-FIXKOSTEN:
-Eine Fixkosten-Serie bleibt bestehen. Wenn du einen einzelnen Fixkosten-Eintrag
-in einen anderen Monat verschiebst, wird dadurch die monatliche Serie nicht beendet.
+DATEN:
+Weiterhin derselbe localStorage-Schlüssel „meinbudget-v1“, damit bestehende Daten erhalten bleiben.
 
 UPDATE:
-1. ZIP entpacken.
-2. Dateien im GitHub-Repository ersetzen.
-3. Commit changes.
-4. GitHub Pages aktualisiert die App automatisch.
+ZIP entpacken -> Dateien im GitHub-Repository ersetzen -> Commit changes.
+GitHub Pages aktualisiert die installierte App automatisch.
