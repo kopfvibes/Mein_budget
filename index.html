@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101012">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Mein Budget</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <style>
+    :root{
+      --bg:#0e0e10; --panel:#17171a; --panel2:#202025; --text:#f7f6f2;
+      --muted:#aaa8ae; --gold:#d9bb70; --green:#72d4a0; --red:#ee8585;
+      --line:#2c2c32;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--bg)}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    button,input,select{font:inherit}
+    .wrap{max-width:780px;margin:0 auto;padding:18px 14px 110px}
+    .hero{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:14px}
+    .hero h1{font-size:28px;margin:0 0 4px;letter-spacing:-.03em}
+    .hero p{margin:0;color:var(--muted);font-size:14px}
+    .month{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:10px 12px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
+    .card.big{grid-column:1/-1}
+    .label{color:var(--muted);font-size:13px;margin-bottom:6px}
+    .value{font-size:26px;font-weight:750;letter-spacing:-.03em}
+    .value.good{color:var(--green)}
+    .value.bad{color:var(--red)}
+    .bar{height:10px;background:#2b2b31;border-radius:999px;overflow:hidden;margin:10px 0 6px}
+    .bar > span{display:block;height:100%;width:0;background:var(--gold);border-radius:999px;transition:width .25s ease}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .section{margin-top:18px}
+    .section h2{font-size:18px;margin:0 0 10px}
+    .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+    .tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:11px 8px;border-radius:12px}
+    .tab.active{background:var(--gold);color:#111;border-color:var(--gold);font-weight:700}
+    form{display:grid;grid-template-columns:1.1fr .8fr .8fr auto;gap:8px}
+    input,select{width:100%;min-width:0;background:var(--panel2);border:1px solid var(--line);color:var(--text);padding:12px;border-radius:12px;outline:none}
+    input:focus,select:focus{border-color:var(--gold)}
+    .btn{border:0;background:var(--gold);color:#111;padding:12px 15px;border-radius:12px;font-weight:750;min-height:44px}
+    .btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+    .list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+    .item{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+    .item .name{font-weight:650}
+    .item .meta{font-size:12px;color:var(--muted);margin-top:3px}
+    .amount{font-weight:750}
+    .delete{border:0;background:transparent;color:var(--red);font-size:20px;padding:8px 9px}
+    .empty{color:var(--muted);font-size:14px;padding:12px 2px}
+    .goalbox{display:grid;grid-template-columns:1fr 1fr auto;gap:8px}
+    .hint{color:var(--muted);font-size:12px;margin-top:7px;line-height:1.4}
+    .footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
+    .badge{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);padding:6px 9px;border-radius:999px;color:var(--muted);font-size:12px}
+    @media (max-width:620px){
+      .hero{align-items:flex-start;flex-direction:column}
+      .grid{grid-template-columns:1fr 1fr}
+      form{grid-template-columns:1fr 1fr}
+      form .wide{grid-column:1/-1}
+      .goalbox{grid-template-columns:1fr 1fr}
+      .goalbox .btn{grid-column:1/-1}
+    }
+    @media (max-width:390px){
+      .grid{grid-template-columns:1fr}
+      .card.big{grid-column:auto}
+      form{grid-template-columns:1fr}
+      form .wide{grid-column:auto}
+      .goalbox{grid-template-columns:1fr}
+      .goalbox .btn{grid-column:auto}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Mein Budget</h1>
+      <p>Was geht ab? Was bleibt? Was kann ich sparen?</p>
+    </div>
+    <select id="monthSelect" class="month" aria-label="Monat auswählen"></select>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="label">Einnahmen</div>
+      <div id="incomeValue" class="value">0,00 €</div>
+    </div>
+    <div class="card">
+      <div class="label">Ausgaben</div>
+      <div id="expenseValue" class="value bad">0,00 €</div>
+    </div>
+    <div class="card big">
+      <div class="row">
+        <div>
+          <div class="label">Dir bleibt diesen Monat</div>
+          <div id="remainingValue" class="value good">0,00 €</div>
+        </div>
+        <span id="statusBadge" class="badge">Noch keine Daten</span>
+      </div>
+    </div>
+    <div class="card big">
+      <div class="row">
+        <div>
+          <div class="label">Sparziel</div>
+          <div id="goalTitle" class="value" style="font-size:20px">Noch kein Ziel</div>
+        </div>
+        <div id="goalAmountLabel" class="label">0 / 0 €</div>
+      </div>
+      <div class="bar"><span id="goalBar"></span></div>
+      <div id="goalHint" class="hint">Lege unten ein Sparziel fest.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Eintrag hinzufügen</h2>
+    <div class="tabs">
+      <button class="tab active" data-type="expense" type="button">Ausgabe</button>
+      <button class="tab" data-type="income" type="button">Einnahme</button>
+      <button class="tab" data-type="fixed" type="button">Fixkosten</button>
+    </div>
+
+    <form id="entryForm">
+      <input id="entryName" class="wide" placeholder="z. B. Miete, Gehalt, Einkauf" required maxlength="60">
+      <input id="entryAmount" type="number" min="0.01" step="0.01" placeholder="Betrag" required>
+      <select id="entryCategory" aria-label="Kategorie">
+        <option>Wohnen</option><option>Lebensmittel</option><option>Auto</option>
+        <option>Kinder</option><option>Versicherung</option><option>Freizeit</option>
+        <option>Abos</option><option>Gesundheit</option><option>Sonstiges</option>
+      </select>
+      <button class="btn" type="submit">+ Speichern</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <h2 style="margin:0">Deine Buchungen</h2>
+      <button id="clearMonth" class="btn secondary" type="button">Monat leeren</button>
+    </div>
+    <div id="entryList" class="list"></div>
+  </div>
+
+  <div class="section">
+    <h2>Sparziel setzen</h2>
+    <div class="goalbox">
+      <input id="goalName" placeholder="z. B. Urlaub">
+      <input id="goalTarget" type="number" min="1" step="1" placeholder="Zielbetrag €">
+      <button id="saveGoal" class="btn" type="button">Sparziel speichern</button>
+    </div>
+    <div class="hint">Der Sparfortschritt richtet sich nach dem Betrag, der dir nach deinen Ausgaben übrig bleibt.</div>
+  </div>
+
+  <div class="footer">
+    Deine Daten bleiben lokal auf diesem Gerät gespeichert.
+  </div>
+</div>
+
+<script>
+(() => {
+  const fmt = new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'});
+  const now = new Date();
+  const keyFor = (y,m) => `${y}-${String(m+1).padStart(2,'0')}`;
+  const currentKey = keyFor(now.getFullYear(), now.getMonth());
+
+  const els = {
+    month: document.getElementById('monthSelect'),
+    income: document.getElementById('incomeValue'),
+    expense: document.getElementById('expenseValue'),
+    remaining: document.getElementById('remainingValue'),
+    badge: document.getElementById('statusBadge'),
+    list: document.getElementById('entryList'),
+    form: document.getElementById('entryForm'),
+    name: document.getElementById('entryName'),
+    amount: document.getElementById('entryAmount'),
+    category: document.getElementById('entryCategory'),
+    goalName: document.getElementById('goalName'),
+    goalTarget: document.getElementById('goalTarget'),
+    saveGoal: document.getElementById('saveGoal'),
+    goalTitle: document.getElementById('goalTitle'),
+    goalAmountLabel: document.getElementById('goalAmountLabel'),
+    goalBar: document.getElementById('goalBar'),
+    goalHint: document.getElementById('goalHint'),
+    clearMonth: document.getElementById('clearMonth')
+  };
+
+  let activeType = 'expense';
+  let selectedMonth = currentKey;
+
+  const load = () => {
+    try { return JSON.parse(localStorage.getItem('meinbudget-v1')) || {months:{},goal:null}; }
+    catch { return {months:{},goal:null}; }
+  };
+  const save = data => localStorage.setItem('meinbudget-v1', JSON.stringify(data));
+  let data = load();
+
+  const populateMonths = () => {
+    const df = new Intl.DateTimeFormat('de-DE',{month:'long',year:'numeric'});
+    for(let i=-12;i<=12;i++){
+      const d = new Date(now.getFullYear(), now.getMonth()+i, 1);
+      const k = keyFor(d.getFullYear(), d.getMonth());
+      const o = document.createElement('option');
+      o.value = k; o.textContent = df.format(d);
+      if(k===selectedMonth) o.selected = true;
+      els.month.appendChild(o);
+    }
+  };
+
+  const monthEntries = () => data.months[selectedMonth] || [];
+  const totals = () => {
+    const entries = monthEntries();
+    let income=0, expense=0;
+    entries.forEach(e => {
+      if(e.type==='income') income += e.amount;
+      else expense += e.amount;
+    });
+    return {income, expense, remaining: income-expense};
+  };
+
+  const render = () => {
+    const t = totals();
+    els.income.textContent = fmt.format(t.income);
+    els.expense.textContent = fmt.format(t.expense);
+    els.remaining.textContent = fmt.format(t.remaining);
+    els.remaining.className = 'value ' + (t.remaining >= 0 ? 'good' : 'bad');
+
+    if(t.income===0 && t.expense===0) els.badge.textContent='Noch keine Daten';
+    else if(t.remaining < 0) els.badge.textContent='Budget überschritten';
+    else if(t.income > 0 && t.remaining/t.income < .15) els.badge.textContent='Knappes Polster';
+    else els.badge.textContent='Sieht gut aus';
+
+    const entries = monthEntries();
+    els.list.innerHTML='';
+    if(!entries.length){
+      const e=document.createElement('div'); e.className='empty'; e.textContent='Für diesen Monat gibt es noch keine Einträge.';
+      els.list.appendChild(e);
+    } else {
+      [...entries].reverse().forEach(entry => {
+        const row=document.createElement('div'); row.className='item';
+        const left=document.createElement('div');
+        const title=document.createElement('div'); title.className='name'; title.textContent=entry.name;
+        const meta=document.createElement('div'); meta.className='meta';
+        meta.textContent=(entry.type==='income'?'Einnahme':entry.type==='fixed'?'Fixkosten':'Ausgabe')+' · '+entry.category;
+        left.append(title,meta);
+        const amount=document.createElement('div'); amount.className='amount';
+        amount.textContent=(entry.type==='income'?'+ ':'− ')+fmt.format(entry.amount);
+        amount.style.color=entry.type==='income'?'var(--green)':'var(--text)';
+        const del=document.createElement('button'); del.className='delete'; del.type='button'; del.setAttribute('aria-label','Eintrag löschen'); del.textContent='×';
+        del.addEventListener('click',()=>{
+          data.months[selectedMonth]=(data.months[selectedMonth]||[]).filter(x=>x.id!==entry.id);
+          save(data); render();
+        });
+        row.append(left,amount,del); els.list.appendChild(row);
+      });
+    }
+
+    if(data.goal && data.goal.target>0){
+      const progress = Math.max(0, Math.min(t.remaining, data.goal.target));
+      const pct = Math.max(0, Math.min(100, (progress/data.goal.target)*100));
+      els.goalTitle.textContent=data.goal.name || 'Sparziel';
+      els.goalAmountLabel.textContent=`${fmt.format(progress)} / ${fmt.format(data.goal.target)}`;
+      els.goalBar.style.width=pct+'%';
+      els.goalHint.textContent = t.remaining <= 0
+        ? 'Aktuell bleibt noch nichts fürs Sparziel übrig.'
+        : pct >= 100 ? 'Ziel erreicht 🎉' : `Noch ${fmt.format(data.goal.target-progress)} bis zum Ziel.`;
+      els.goalName.value=data.goal.name || '';
+      els.goalTarget.value=data.goal.target || '';
+    } else {
+      els.goalTitle.textContent='Noch kein Ziel';
+      els.goalAmountLabel.textContent='0 / 0 €';
+      els.goalBar.style.width='0%';
+      els.goalHint.textContent='Lege unten ein Sparziel fest.';
+    }
+  };
+
+  document.querySelectorAll('.tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeType=btn.dataset.type;
+    });
+  });
+
+  els.form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const name=els.name.value.trim();
+    const amount=Number(els.amount.value);
+    if(!name || !Number.isFinite(amount) || amount<=0) return;
+    data.months[selectedMonth] ||= [];
+    data.months[selectedMonth].push({
+      id: crypto?.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random(),
+      name, amount, type:activeType, category:els.category.value, createdAt:Date.now()
+    });
+    save(data);
+    els.form.reset();
+    render();
+  });
+
+  els.month.addEventListener('change',()=>{ selectedMonth=els.month.value; render(); });
+
+  els.saveGoal.addEventListener('click',()=>{
+    const name=els.goalName.value.trim() || 'Mein Sparziel';
+    const target=Number(els.goalTarget.value);
+    if(!Number.isFinite(target) || target<=0) return;
+    data.goal={name,target}; save(data); render();
+  });
+
+  els.clearMonth.addEventListener('click',()=>{
+    if(confirm('Wirklich alle Einträge dieses Monats löschen?')){
+      data.months[selectedMonth]=[]; save(data); render();
+    }
+  });
+
+  populateMonths();
+  render();
+
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  }
+})();
+</script>
+</body>
+</html>
