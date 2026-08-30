@@ -44,6 +44,27 @@ details{background:var(--s);border:1px solid var(--l);border-radius:16px;padding
 .yetip:after{content:"";width:86px;height:32px;border-radius:40px 40px 10px 10px;background:linear-gradient(180deg,#b7ab89,#7d735a);display:block;margin:-25px auto 0;order:3;opacity:.9}
 @media(max-width:360px){.grid{grid-template-columns:1fr}.card.wide{grid-column:auto}.item{grid-template-columns:minmax(0,1fr) auto}.item .acts{grid-column:1/-1;justify-content:flex-end}.val{font-size:24px}}
 
+
+/* V6: kompakter Monatsstart + schönerer Spar-Meister */
+.wrap{max-width:430px;padding:12px 10px 96px}
+.grid{grid-template-columns:1fr 1fr}
+@media(max-width:370px){.grid{grid-template-columns:1fr}}
+.yetip{grid-template-columns:1fr;gap:12px;text-align:center;padding-top:6px}
+.yetip:after{display:none}
+.mascotSlot{display:flex;justify-content:center}
+.yeti{width:172px;height:182px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;box-shadow:none;margin:0 auto}
+.yeti:before,.yeti:after,.horns,.eyes,.eye,.mouth{display:none !important;content:none !important}
+.yeti-svg{width:172px;height:172px;overflow:visible}
+.yeti .mouth.happy{opacity:1}.yeti .mouth.worried,.yeti .mouth.sad,.yeti .lid{opacity:0}
+.yeti.worried .mouth.happy{opacity:0}.yeti.worried .mouth.worried{opacity:1}.yeti.worried .lid{opacity:.52}
+.yeti.sad .mouth.happy,.yeti.sad .mouth.worried{opacity:0}.yeti.sad .mouth.sad{opacity:1}.yeti.sad .lid{opacity:.85}
+.planhead{grid-template-columns:1fr;gap:8px}
+.yset{grid-template-columns:1fr}
+.section h2{font-size:18px}
+.card,.panel{border-radius:18px;padding:14px}
+.item{padding:10px}
+.btn,.tab{min-height:42px}
+
 </style>
 </head>
 <body>
@@ -59,17 +80,58 @@ details{background:var(--s);border:1px solid var(--l);border-radius:16px;padding
 </div>
 
 <div class="section"><div class="panel yetip">
-<div><div id="yeti" class="yeti"><div class="horns"><span class="horn"></span><span class="horn"></span></div><div class="eyes"><span class="eye"></span><span class="eye"></span></div><div class="mouth"></div></div></div>
+<div class="mascotSlot"><div id="yeti" class="yeti">
+<svg class="yeti-svg" viewBox="0 0 220 220" aria-hidden="true">
+  <defs>
+    <radialGradient id="faceGlow" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#b8da86"/>
+      <stop offset="65%" stop-color="#7e9e56"/>
+      <stop offset="100%" stop-color="#5b7240"/>
+    </radialGradient>
+    <linearGradient id="robeGrad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d8c5a0"/>
+      <stop offset="100%" stop-color="#897557"/>
+    </linearGradient>
+    <linearGradient id="innerEar" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d4b4a2"/>
+      <stop offset="100%" stop-color="#b98c7b"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="rgba(0,0,0,.35)"/>
+    </filter>
+  </defs>
+  <ellipse cx="110" cy="194" rx="62" ry="14" fill="rgba(0,0,0,.22)"/>
+  <g filter="url(#softShadow)">
+    <path d="M55 150 Q110 110 165 150 L177 191 Q110 212 43 191 Z" fill="url(#robeGrad)" stroke="#5b4b37" stroke-width="2.2"/>
+    <path d="M73 147 Q110 129 147 147" fill="none" stroke="#f0e7d4" stroke-width="6" stroke-linecap="round" opacity=".9"/>
+    <path d="M60 99 Q38 82 18 94 Q35 100 53 112" fill="url(#faceGlow)" stroke="#50653a" stroke-width="2.2"/>
+    <path d="M160 99 Q182 82 202 94 Q185 100 167 112" fill="url(#faceGlow)" stroke="#50653a" stroke-width="2.2"/>
+    <path d="M63 102 Q44 95 28 100 Q42 102 56 110" fill="url(#innerEar)" opacity=".7"/>
+    <path d="M157 102 Q176 95 192 100 Q178 102 164 110" fill="url(#innerEar)" opacity=".7"/>
+    <ellipse cx="110" cy="92" rx="52" ry="47" fill="url(#faceGlow)" stroke="#50653a" stroke-width="2.6"/>
+    <ellipse cx="82" cy="92" rx="10" ry="13" fill="#20170f"/>
+    <ellipse cx="138" cy="92" rx="10" ry="13" fill="#20170f"/>
+    <ellipse cx="79" cy="88" rx="2.3" ry="3.2" fill="#fff" opacity=".7"/>
+    <ellipse cx="135" cy="88" rx="2.3" ry="3.2" fill="#fff" opacity=".7"/>
+    <path class="lid left" d="M72 86 Q82 78 92 86" fill="none" stroke="#5a7141" stroke-width="6" stroke-linecap="round" opacity="0"/>
+    <path class="lid right" d="M128 86 Q138 78 148 86" fill="none" stroke="#5a7141" stroke-width="6" stroke-linecap="round" opacity="0"/>
+    <path d="M100 106 Q110 112 120 106" fill="none" stroke="#4c5f39" stroke-width="2.8" stroke-linecap="round" opacity=".55"/>
+    <path class="mouth happy" d="M92 119 Q110 131 128 119" fill="none" stroke="#2a2118" stroke-width="4.5" stroke-linecap="round"/>
+    <path class="mouth worried" d="M96 121 Q110 116 124 121" fill="none" stroke="#2a2118" stroke-width="4.5" stroke-linecap="round" opacity="0"/>
+    <path class="mouth sad" d="M92 129 Q110 116 128 129" fill="none" stroke="#2a2118" stroke-width="4.5" stroke-linecap="round" opacity="0"/>
+    <circle cx="110" cy="127" r="2.3" fill="#684537" opacity=".35"/>
+  </g>
+</svg>
+</div></div>
 <div><div class="k">Dein Spar-Meister</div><b id="yetiHead">Alles gut.</b><div id="yetiText" class="muted" style="margin-top:6px;line-height:1.45"></div><div class="yset"><input id="yetiName" placeholder="Name des Spar-Meisters"><input id="yetiLimit" type="number" min="0" step="10" placeholder="Warn-Grenze €"><button id="saveYeti" class="btn secondary small">Anpassen</button></div></div>
 </div></div>
 
-<div class="section"><div class="st"><h2>Monatsplan</h2><span class="muted">Haushalt & Budgets</span></div><div class="panel">
+<div class="section"><div class="st"><h2>Monatsstart</h2><span class="muted">Kinder & Konto-Minus</span></div><div class="panel">
 <div class="planhead">
 <div><div class="k">Kinder im Haushalt</div><input id="children" type="number" min="0" max="10" step="1" placeholder="0"></div>
 <div><div class="k">Konto-Minus zu Monatsbeginn</div><input id="overdraft" type="number" min="0" step="10" placeholder="z. B. 350"></div>
 </div>
-<div class="plansum"><div class="mini"><div class="k">Konto-Minus</div><b id="planOverdraft">0 €</b></div><div class="mini"><div class="k">Von dir verplant</div><b id="planned">0 €</b></div><div class="mini"><div class="k">Noch unverplant</div><b id="unplanned">0 €</b></div></div>
-<div id="budgetRows"></div><div class="muted" style="margin-top:8px">Du legst jedes Kategorien-Budget selbst fest. Die App macht keine automatische Verteilung.</div>
+<div class="muted" style="margin-top:10px">Hier stellst du nur den Monatsstart ein. Die lange Budget-Aufteilung mit den vielen 0-Feldern wurde entfernt.</div>
 </div></div>
 
 <div class="section"><div class="st"><h2>Eintrag hinzufügen</h2><span class="muted">Einnahme · Ausgabe · Fixkosten</span></div>
@@ -108,7 +170,7 @@ function ensureFixed(){data.months[month]||=[];let ch=false;data.fixedTemplates.
 const entries=()=>{ensureFixed();return data.months[month]||[]},saved=()=>data.savingsGoals.reduce((a,g)=>a+(g.deposits||[]).filter(d=>d.month===month).reduce((s,d)=>s+(+d.amount),0),0);
 function totals(){let i=0,x=0;entries().forEach(e=>e.type==='income'?i+=+e.amount:x+=+e.amount);let s=saved(),minus=Math.max(0,+data.accountMinus[month]||0);return{income:i,expenses:x,saved:s,overdraft:minus,available:i-x-s-minus}}
 function dashboard(){let t=totals();$('income').textContent=euro(t.income);$('expenses').textContent=euro(t.expenses);$('saved').textContent=euro(t.saved);$('overdraftValue').textContent=t.overdraft?('− '+euro(t.overdraft)):euro(0);$('available').textContent=euro(t.available);$('available').className='val '+(t.available>=0?'ok':'bad');yeti(t.available)}
-function yeti(a){let y=$('yeti'),n=data.yeti.name||'Mino',l=Math.max(0,+data.yeti.threshold||0);y.className='yeti';let h,t;if(a<0){y.classList.add('sad');h=`${n}: Das Konto braucht Hilfe.`;t=`Du liegst ${euro(Math.abs(a))} unter null. Erst den Puffer wieder aufbauen, dann weiter sparen.`}else if(a<l){y.classList.add('sad');h=`${n} ist besorgt.`;t=`Nur noch ${euro(a)} frei. Deine persönliche Warn-Grenze liegt bei ${euro(l)}.`}else if(a<l*2){y.classList.add('worried');h=`${n} beobachtet den Monat.`;t=`Noch ${euro(a)} verfügbar. Etwas Reserve ist da, aber achte auf spontane Ausgaben.`}else{h=`${n} ist zufrieden.`;t=`Noch ${euro(a)} frei. Dein finanzieller Puffer sieht aktuell gut aus.`}$('yetiHead').textContent=h;$('yetiText').textContent=t;$('yetiName').value=n;$('yetiLimit').value=l}
+function yeti(a){let y=$('yeti'),n=data.yeti.name||'Mino',l=Math.max(0,+data.yeti.threshold||0);y.className='yeti';let h,t;if(a<0){y.classList.add('sad');h=`${n}: Das Konto braucht Hilfe.`;t=`Du liegst ${euro(Math.abs(a))} unter null. Erst den Puffer wieder aufbauen, dann weiter sparen.`}else if(a<l){y.classList.add('sad');h=`${n} ist besorgt.`;t=`Nur noch ${euro(a)} frei. Deine persönliche Warn-Grenze liegt bei ${euro(l)}.`}else if(a<l*2){y.classList.add('worried');h=`${n} beobachtet den Monat.`;t=`Noch ${euro(a)} verfügbar. Es ist noch Luft da, aber nicht mehr endlos.`}else{y.classList.add('happy');h=`${n} ist zufrieden.`;t=`Noch ${euro(a)} frei. Dein Puffer sieht aktuell stabil aus.`}$('yetiHead').textContent=h;$('yetiText').textContent=t;$('yetiName').value=n;$('yetiLimit').value=l}
 function renderEntries(){let host=$('entries'),arr=entries();host.innerHTML='';if(!arr.length){host.innerHTML='<div class="muted">Noch keine Buchungen.</div>';return}[...arr].reverse().forEach(e=>{let r=document.createElement('div');r.className='item';let l=document.createElement('div');l.innerHTML='<div class="name"></div><div class="meta"></div>';l.querySelector('.name').textContent=e.name;l.querySelector('.meta').textContent=`${e.type==='income'?'Einnahme':e.type==='fixed'?'Fixkosten':'Ausgabe'} · ${e.category}${e.date?' · '+dateLabel(e.date):''}`;let a=document.createElement('div');a.className='amt';a.textContent=(e.type==='income'?'+ ':'− ')+euro(e.amount);if(e.type==='income')a.style.color='var(--ok)';let ac=document.createElement('div');ac.className='acts';let ed=document.createElement('button');ed.className='icon';ed.textContent='✎';ed.onclick=()=>openEdit(e.id);let del=document.createElement('button');del.className='icon del';del.textContent='×';del.onclick=()=>{data.months[month]=arr.filter(x=>x.id!==e.id);save();render()};ac.append(ed,del);r.append(l,a,ac);host.appendChild(r)})}
 function openEdit(id){let e=entries().find(x=>x.id===id);if(!e)return;editId=id;$('editName').value=e.name;$('editAmount').value=e.amount;$('editDate').value=e.date||`${month}-01`;$('editCat').value=e.category;$('editType').value=e.type;$('editModal').classList.add('open')}
 function closeEdit(){$('editModal').classList.remove('open');editId=null}
@@ -116,10 +178,10 @@ function saveEdit(){let sourceMonth=month,e=(data.months[sourceMonth]||[]).find(
 function spend(){let s={};entries().filter(e=>e.type!=='income').forEach(e=>s[e.category]=(s[e.category]||0)+(+e.amount));return s}
 function budget(){data.monthlyBudgets[month]||={};return data.monthlyBudgets[month]}
 
-function planner(){let b=budget(),s=spend(),host=$('budgetRows'),planned=0;host.innerHTML='';$('children').value=data.household.children;$('overdraft').value=Math.max(0,+data.accountMinus[month]||0);PLAN.filter(c=>data.categories.includes(c)).forEach(c=>{let bv=+b[c]||0,sv=+s[c]||0,p=bv?Math.min(100,sv/bv*100):sv?100:0;planned+=bv;let r=document.createElement('div');r.className='brow';r.innerHTML=`<div><b></b><div class="bar ${sv>bv&&bv>0?'over':''}"><span style="width:${p}%"></span></div></div><input type="number" min="0" step="5" value="${bv}" aria-label="Budget"><div class="spent meta">${euro(sv)} genutzt</div><div class="meta">${bv?Math.round(sv/bv*100):0}%</div>`;r.querySelector('b').textContent=c;r.querySelector('input').onchange=e=>{b[c]=Math.max(0,+e.target.value||0);save();planner()};host.appendChild(r)});let t=totals(),unp=t.income-t.overdraft-t.saved-planned;$('planOverdraft').textContent=t.overdraft?('− '+euro(t.overdraft)):euro(0);$('planned').textContent=euro(planned);$('unplanned').textContent=euro(unp);$('unplanned').className=unp>=0?'ok':'bad'}
+function planner(){$('children').value=data.household.children;$('overdraft').value=Math.max(0,+data.accountMinus[month]||0)}
 function goals(){let h=$('goals');h.innerHTML='';if(!data.savingsGoals.length)h.innerHTML='<div class="muted">Noch kein Sparziel.</div>';data.savingsGoals.forEach(g=>{let sv=(g.deposits||[]).reduce((s,d)=>s+(+d.amount),0),rem=Math.max(0,+g.target-sv),pct=Math.max(0,Math.min(100,sv/(+g.target)*100||0)),box=document.createElement('div');box.className='goal';box.innerHTML=`<div class="row"><div><b></b><div class="meta">${euro(sv)} gespart · noch ${euro(rem)}</div></div><span class="pill">${Math.round(pct)}%</span></div><div class="bar"><span style="width:${pct}%"></span></div><div class="gact"><input type="number" min=".01" step=".01" placeholder="Betrag"><button class="btn small">+ Einzahlen</button><button class="btn secondary small">Entnahme</button></div>`;box.querySelector('b').textContent=`${g.name} · ${euro(g.target)}`;let inp=box.querySelector('input'),bs=box.querySelectorAll('button');bs[0].onclick=()=>{let a=+inp.value;if(a>0){g.deposits.push({id:uid(),amount:a,month,date:Date.now()});save();render()}};bs[1].onclick=()=>{let a=+(prompt('Wie viel entnimmst du?')||0);if(a>0){g.deposits.push({id:uid(),amount:-a,month,date:Date.now()});save();render()}};h.appendChild(box)})}
 const RED={Lebensmittel:.07,Drogerie:.08,Auto:.05,Freizeit:.18,Abos:.25,Shopping:.20,'Essen außer Haus':.22,Sonstiges:.08,Wohnen:.02,Versicherung:.04,Kinder:.03,Gesundheit:.02};
-function analysis(){let s=spend(),est=Object.entries(s).map(([c,a])=>({c,a,p:a*(RED[c]??.05)})).sort((x,y)=>y.p-x.p),pot=est.reduce((a,x)=>a+x.p,0),top=est[0],tips=[],b=budget();$('potential').textContent=euro(pot);$('potentialText').textContent=pot?'Vorsichtige Orientierung aus deinen Ausgaben.':'Noch nicht genug Daten.';$('topCat').textContent=top?top.c:'—';$('topDetail').textContent=top?`${euro(top.a)} ausgegeben · grob ${euro(top.p)} Potenzial`:'Noch keine Ausgaben.';Object.entries(s).forEach(([c,a])=>{let bv=+b[c]||0;if(bv&&a>bv)tips.push(`${c}: ${euro(a-bv)} über deinem eigenen Monatsbudget.`)});if(s.Abos)tips.push(`Abos: ${euro(s.Abos)}. Prüfe alles, was du aktuell nicht aktiv nutzt.`);if(s.Lebensmittel)tips.push(`Lebensmittel: ${euro(s.Lebensmittel)}. Wochenplan und feste Einkaufsliste bremsen spontane Zusatzkäufe.`);if(s['Essen außer Haus'])tips.push(`Außer Haus: ${euro(s['Essen außer Haus'])}. Eine Mahlzeit weniger pro Woche kann spürbar helfen.`);if(!tips.length)tips.push('Mit mehr Buchungen und Budgets wird der Spar-Check genauer.');$('tips').innerHTML=tips.slice(0,5).map((x,i)=>`<div class="tip"><strong>${i?'Tipp':'Auffällig'}</strong><br>${esc(x)}</div>`).join('')}
+function analysis(){let s=spend(),est=Object.entries(s).map(([c,a])=>({c,a,p:a*(RED[c]??.05)})).sort((x,y)=>y.p-x.p),pot=est.reduce((a,x)=>a+x.p,0),top=est[0],tips=[];$('potential').textContent=euro(pot);$('potentialText').textContent=pot?'Vorsichtige Orientierung aus deinen Ausgaben.':'Noch nicht genug Daten.';$('topCat').textContent=top?top.c:'—';$('topDetail').textContent=top?`${euro(top.a)} ausgegeben · grob ${euro(top.p)} Potenzial`:'Noch keine Ausgaben.';if(top&&top.a>0)tips.push(`${top.c}: Hier steckt aktuell dein größter Spar-Hebel.`);if(s.Abos)tips.push(`Abos: ${euro(s.Abos)}. Prüfe alles, was du gerade nicht wirklich nutzt.`);if(s.Lebensmittel)tips.push(`Lebensmittel: ${euro(s.Lebensmittel)}. Wochenplan und feste Einkaufsliste bremsen Zusatzkäufe.`);if(s['Essen außer Haus'])tips.push(`Außer Haus: ${euro(s['Essen außer Haus'])}. Schon eine Bestellung weniger pro Woche macht oft einen Unterschied.`);if(s.Shopping)tips.push(`Shopping: ${euro(s.Shopping)}. 24-Stunden-Regel hilft gegen Spontankäufe.`);if(!tips.length)tips.push('Mit mehr Buchungen und Kassenzetteln wird der Spar-Check genauer.');$('tips').innerHTML=tips.slice(0,5).map((x,i)=>`<div class="tip"><strong>${i?'Tipp':'Auffällig'}</strong><br>${esc(x)}</div>`).join('')}
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function settings(){let h=$('cats');h.innerHTML='';data.categories.forEach(c=>{let r=document.createElement('div');r.className='settingsrow';let n=document.createElement('div');n.textContent=c;let e=document.createElement('button');e.className='btn secondary small';e.textContent='Umbenennen';e.onclick=()=>{let nn=(prompt('Neuer Name:',c)||'').trim();if(!nn||nn===c||data.categories.includes(nn))return;data.categories=data.categories.map(x=>x===c?nn:x);Object.values(data.months).flat().forEach(x=>{if(x.category===c)x.category=nn});data.fixedTemplates.forEach(x=>{if(x.category===c)x.category=nn});Object.values(data.monthlyBudgets).forEach(b=>{if(b[c]!=null){b[nn]=b[c];delete b[c]}});save();render()};let d=document.createElement('button');d.className='btn danger small';d.textContent='Löschen';d.disabled=c==='Sonstiges';d.onclick=()=>{if(confirm(`"${c}" löschen?`)){Object.values(data.months).flat().forEach(x=>{if(x.category===c)x.category='Sonstiges'});data.fixedTemplates.forEach(x=>{if(x.category===c)x.category='Sonstiges'});data.categories=data.categories.filter(x=>x!==c);save();render()}};r.append(n,e,d);h.appendChild(r)});let f=$('fixed');f.innerHTML='';if(!data.fixedTemplates.length)f.innerHTML='<div class="muted">Noch keine Fixkosten.</div>';data.fixedTemplates.forEach(t=>{let r=document.createElement('div');r.className='settingsrow';let n=document.createElement('div');n.innerHTML=`<b>${esc(t.name)}</b><div class="meta">${euro(t.amount)} · ${esc(t.category)}${t.active===false?' · pausiert':''}</div>`;let e=document.createElement('button');e.className='btn secondary small';e.textContent='Bearbeiten';e.onclick=()=>{let nn=(prompt('Name:',t.name)||'').trim(),a=+(prompt('Betrag:',t.amount)||0);if(nn&&a>0){t.name=nn;t.amount=a;save();render()}};let q=document.createElement('button');q.className='btn small';q.textContent=t.active===false?'Aktivieren':'Pausieren';q.onclick=()=>{t.active=t.active===false;save();render()};r.append(n,e,q);f.appendChild(r)})}
 async function preprocess(file){let img=await createImageBitmap(file),max=1800,sc=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);let x=c.getContext('2d');x.drawImage(img,0,0,c.width,c.height);let im=x.getImageData(0,0,c.width,c.height),d=im.data;for(let i=0;i<d.length;i+=4){let g=.299*d[i]+.587*d[i+1]+.114*d[i+2],v=g>180?255:g<70?0:Math.max(0,Math.min(255,(g-128)*1.6+128));d[i]=d[i+1]=d[i+2]=v}x.putImageData(im,0,0);return c}

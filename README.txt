@@ -1,28 +1,28 @@
-MEIN BUDGET – VERSION 5
+MEIN BUDGET SMART – VERSION 6
 
-NEU:
-- Mobile-First-Ansicht für eine typische Handybreite.
-- Feld Erwachsene komplett entfernt.
-- Keine automatische Budget-Verteilung und kein Vorschlags-Button mehr.
-- Kategorien-Budgets werden ausschließlich von dir selbst eingetragen.
-- Kinderzahl bleibt als Haushaltsangabe erhalten.
-- Konto-Minus zu Monatsbeginn kann für jeden Monat separat eingetragen werden.
-- Konto-Minus wird beim tatsächlich frei verfügbaren Geld sofort abgezogen.
-- Konto-Minus wird auch bei der Anzeige „noch unverplant“ berücksichtigt.
-- Spar-Maskottchen neu gestaltet: eigenständiger kleiner grüner weiser Spar-Meister mit großen Ohren und Sci-Fi-Anmutung.
-- Name und Warn-Grenze des Spar-Meisters bleiben frei anpassbar.
-- Datum pro Buchung, Verschieben zwischen Monaten, Fixkosten, Sparziele, Kategorien und Kassenzettel-Analyse bleiben erhalten.
-
-BEISPIEL KONTO-MINUS:
-Einnahmen 2.000 €
-Konto-Minus zu Monatsbeginn 350 €
-Ausgaben 1.000 €
-Gespart 100 €
-=> tatsächlich frei verfügbar: 550 €
-
-DATEN:
-Weiterhin derselbe localStorage-Schlüssel „meinbudget-v1“, damit bestehende Daten erhalten bleiben.
+NEU IN V6:
+- Der lange Block mit Wohnen / Lebensmittel / Drogerie / Auto usw. wurde komplett entfernt.
+- Stattdessen gibt es nur noch einen kompakten Bereich "Monatsstart":
+  - Kinder im Haushalt
+  - Konto-Minus zu Monatsbeginn
+- Die App bleibt dadurch deutlich ruhiger und übersichtlicher auf dem Handy.
+- Der Spar-Meister wurde visuell überarbeitet:
+  - schönere Grafik
+  - deutlich realistischer
+  - weiche Farben, große Ohren, ruhiger Look
+- Der Spar-Meister reagiert weiter auf deinen verfügbaren Restbetrag:
+  - zufrieden
+  - besorgt
+  - traurig
+- Datumsfunktion, Buchungen bearbeiten, Fixkosten monatlich übernehmen,
+  Sparziele und Kassenzettel-Analyse bleiben erhalten.
 
 UPDATE:
-ZIP entpacken -> Dateien im GitHub-Repository ersetzen -> Commit changes.
-GitHub Pages aktualisiert die installierte App automatisch.
+1. ZIP entpacken
+2. Dateien im GitHub-Repository ersetzen
+3. Commit changes
+4. GitHub Pages aktualisiert die App automatisch
+5. Falls am Handy noch die alte Version angezeigt wird:
+   - App komplett schließen
+   - im Browser neu laden
+   - notfalls die App vom Startbildschirm entfernen und neu installieren
